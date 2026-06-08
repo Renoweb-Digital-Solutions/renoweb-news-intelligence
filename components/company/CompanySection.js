@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ClayCard from "../ui/ClayCard";
+import ProgressLog from "../ui/ProgressLog";
 import { useState } from "react";
 
 export default function CompanySection({ setKeywords }) {
@@ -47,29 +48,32 @@ export default function CompanySection({ setKeywords }) {
             animate={{ opacity: 1 }}
         >
             <ClayCard>
-                <h2 className="text-xl font-semibold mb-6 text-slate-800">
-                    1. Company Details
-                </h2>
+                <div className="flex items-center gap-3 mb-6">
+                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">1</span>
+                    <h2 className="text-lg font-semibold text-[#191919]">
+                        Company Details
+                    </h2>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label className="text-sm font-medium text-slate-500 mb-2 block">
+                        <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">
                             Company Name
                         </label>
                         <input
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
-                            placeholder="Enter company name"
-                            className="clay-input w-full p-3"
+                            placeholder="e.g. Renoweb Digital Solutions"
+                            className="clay-input w-full px-3.5 py-2.5"
                         />
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="text-sm font-medium text-slate-500">
+                        <div className="flex justify-between items-center mb-1.5">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
                                 Max Keywords
                             </label>
-                            <span className="text-sm font-bold text-emerald-600">
+                            <span className="text-sm font-bold text-[#4460ef]">
                                 {maxKeywords}
                             </span>
                         </div>
@@ -82,13 +86,13 @@ export default function CompanySection({ setKeywords }) {
                             onChange={(e) =>
                                 setMaxKeywords(Number(e.target.value))
                             }
-                            className="w-full mt-2 accent-emerald-500 cursor-pointer"
+                            className="w-full mt-2 cursor-pointer"
                         />
                     </div>
                 </div>
 
-                <div className="mt-6">
-                    <label className="text-sm font-medium text-slate-500 mb-2 block">
+                <div className="mt-5">
+                    <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">
                         Company Description
                     </label>
                     <textarea
@@ -97,17 +101,22 @@ export default function CompanySection({ setKeywords }) {
                             setCompanyDescription(e.target.value)
                         }
                         rows={3}
-                        className="clay-input w-full p-3 resize-none"
+                        placeholder="Describe what your company does, its industry, target audience..."
+                        className="clay-input w-full px-3.5 py-2.5 resize-none"
                     />
                 </div>
 
                 <button
                     onClick={suggestKeywords}
                     disabled={loading}
-                    className="clay-btn mt-8 px-8 py-3 disabled:opacity-50"
+                    className="clay-btn mt-6 px-6 py-2.5 text-sm disabled:opacity-50"
                 >
                     {loading ? "Generating..." : "Suggest Keywords"}
                 </button>
+
+                <AnimatePresence>
+                    {loading && <ProgressLog action="suggest" />}
+                </AnimatePresence>
             </ClayCard>
         </motion.div>
     );

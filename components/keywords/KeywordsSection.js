@@ -33,51 +33,59 @@ export default function KeywordsSection({ keywords, setKeywords }) {
 
     return (
         <ClayCard>
-            <h2 className="text-xl font-semibold mb-6 text-slate-800">
-                2. Selected Keywords
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">2</span>
+                <h2 className="text-lg font-semibold text-[#191919]">
+                    Selected Keywords
+                </h2>
+                {keywords.length > 0 && (
+                    <span className="ml-auto text-xs font-medium text-[var(--muted)] bg-[var(--background)] px-2.5 py-1 rounded-full">
+                        {keywords.length} selected
+                    </span>
+                )}
+            </div>
 
             {/* Empty state */}
             {keywords.length === 0 && (
-                <div className="text-sm font-medium text-slate-500 mb-4 p-4 clay-input text-center">
-                    No keywords yet. Generate suggestions above.
+                <div className="text-sm text-[var(--muted)] mb-4 p-6 border border-dashed border-[var(--border)] rounded-xl text-center">
+                    No keywords yet. Generate suggestions above or add your own below.
                 </div>
             )}
 
             {/* Selected keywords */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
                 {keywords.map((kw) => (
                     <div
                         key={kw}
-                        className="flex items-center gap-2 px-4 py-2 border border-emerald-500/20 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium shadow-sm transition-all hover:bg-emerald-100"
+                        className="flex items-center gap-1.5 px-3 py-1.5 border border-[#4460ef]/15 bg-[#f0f3ff] text-[#4460ef] rounded-lg text-sm font-medium transition-all hover:bg-[#e4e9ff]"
                     >
                         {kw}
                         <button
                             onClick={() => removeKeyword(kw)}
-                            className="text-emerald-600/50 hover:text-red-500 transition-colors"
+                            className="text-[#4460ef]/40 hover:text-red-500 transition-colors ml-0.5"
                         >
-                            <X size={16} />
+                            <X size={14} />
                         </button>
                     </div>
                 ))}
             </div>
 
             {/* Add custom keyword */}
-            <div className="mt-8 flex gap-4">
+            <div className="mt-6 flex gap-3">
                 <input
                     value={newKeyword}
                     onChange={(e) => setNewKeyword(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Add custom keyword"
-                    className="clay-input flex-1 p-3"
+                    className="clay-input flex-1 px-3.5 py-2.5"
                 />
 
                 <button
                     onClick={addKeyword}
-                    className="clay-btn px-6 flex items-center gap-2 whitespace-nowrap"
+                    className="clay-btn-secondary px-5 py-2.5 flex items-center gap-2 whitespace-nowrap text-sm"
                 >
-                    <Plus size={18} />
-                    Add Keyword
+                    <Plus size={16} />
+                    Add
                 </button>
             </div>
         </ClayCard>

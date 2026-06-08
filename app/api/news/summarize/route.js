@@ -2,7 +2,7 @@ export async function POST(req) {
     const body = await req.json();
 
     const res = await fetch(
-        `${process.env.BACKEND_URL}/v1/keywords/suggest`,
+        `${process.env.BACKEND_URL}/v1/news/summarize`,
         {
             method: "POST",
             headers: {

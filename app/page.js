@@ -11,28 +11,46 @@ import { useState } from "react";
 
 export default function Dashboard() {
   const [keywords, setKeywords] = useState([]);
+  const [fromDate, setFromDate] = useState(new Date().toISOString().split('T')[0]);
+  const [toDate, setToDate] = useState(new Date().toISOString().split('T')[0]);
+  const [newsData, setNewsData] = useState([]);
+  const [runId, setRunId] = useState(0);
+
   return (
     <AppShell>
-
       <div className="min-h-screen px-8 py-10 max-w-7xl mx-auto">
 
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent"
+          className="mb-10"
         >
-          Renoweb News Intelligence
-        </motion.h1>
+          <h1 className="text-3xl font-bold text-[#191919] tracking-tight">
+            News Intelligence
+          </h1>
+          <p className="text-sm text-[var(--muted)] mt-1">
+            Discover, aggregate, and summarize news for your keywords.
+          </p>
+        </motion.div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           <CompanySection setKeywords={setKeywords} />
           <KeywordsSection keywords={keywords} setKeywords={setKeywords} />
-          <DateRangeSection />
-          <ActionsSection />
-          <NewsTable />
+          <DateRangeSection 
+            fromDate={fromDate} setFromDate={setFromDate}
+            toDate={toDate} setToDate={setToDate}
+          />
+          <ActionsSection 
+            keywords={keywords}
+            fromDate={fromDate}
+            toDate={toDate}
+            runId={runId}
+            setRunId={setRunId}
+            setNewsData={setNewsData}
+          />
+          <NewsTable data={newsData} />
         </div>
       </div>
     </AppShell>
-
   );
 }

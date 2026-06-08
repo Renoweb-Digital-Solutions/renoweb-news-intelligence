@@ -1,28 +1,109 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import ClayCard from "../ui/ClayCard";
+import ProgressLog from "../ui/ProgressLog";
 
-export default function ActionsSection() {
+export default function ActionsSection({ keywords = [], fromDate, toDate, runId, setRunId, setNewsData }) {
     const [maxArticles, setMaxArticles] = useState(40);
     const [forceResummarize, setForceResummarize] = useState(true);
+    const [loadingAction, setLoadingAction] = useState(null);
+    const [dbHasResult, setDbHasResult] = useState(null);
+
+    const handleCheckDb = async () => {
+        setLoadingAction("check_db");
+        try {
+            const res = await fetch("/api/db/has", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ keywords, from_date: fromDate, to_date: toDate, news_limit: maxArticles })
+            });
+            const data = await res.json();
+            setDbHasResult(data);
+            alert(data.has_any ? "News found in DB!" : "No news found in DB.");
+        } catch (error) {
+            console.error("Check DB failed:", error);
+        } finally {
+            setLoadingAction(null);
+        }
+    };
+
+    const handleLoadDb = async () => {
+        setLoadingAction("load_db");
+        try {
+            const res = await fetch("/api/db/existing", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ keywords, from_date: fromDate, to_date: toDate, news_limit: maxArticles })
+            });
+            const data = await res.json();
+            if (data.news_table) {
+                setNewsData(data.news_table);
+            }
+        } catch (error) {
+            console.error("Load DB failed:", error);
+        } finally {
+            setLoadingAction(null);
+        }
+    };
+
+    const handleFetchLive = async () => {
+        setLoadingAction("fetch_live");
+        try {
+            const res = await fetch("/api/news/aggregate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ run_id: runId, keywords, from_date: fromDate, to_date: toDate })
+            });
+            const data = await res.json();
+            if (data.news_table) setNewsData(data.news_table);
+            if (data.run_id !== undefined) setRunId(data.run_id);
+        } catch (error) {
+            console.error("Fetch live failed:", error);
+        } finally {
+            setLoadingAction(null);
+        }
+    };
+
+    const handleSummarize = async () => {
+        setLoadingAction("summarize");
+        try {
+            const res = await fetch("/api/news/summarize", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ run_id: runId, max_articles: maxArticles, force: forceResummarize })
+            });
+            const data = await res.json();
+            if (data.news_table) setNewsData(data.news_table);
+            if (data.run_id !== undefined) setRunId(data.run_id);
+            alert(`Summarized: ${data.summarized}, Skipped: ${data.skipped}, Failed: ${data.failed}`);
+        } catch (error) {
+            console.error("Summarize failed:", error);
+        } finally {
+            setLoadingAction(null);
+        }
+    };
 
     return (
         <ClayCard>
-            <div className="space-y-8">
-                <h2 className="text-xl font-semibold mb-6 text-slate-800">
-                    4. Load existing / Fetch live / Summarize
-                </h2>
+            <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">4</span>
+                    <h2 className="text-lg font-semibold text-[#191919]">
+                        Actions
+                    </h2>
+                </div>
 
-                {/* Slider + Force Toggle */}
-                <div className="grid md:grid-cols-2 gap-8 items-start">
+                {/* Controls row */}
+                <div className="grid md:grid-cols-2 gap-6 items-start">
                     {/* Slider Section */}
                     <div>
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="text-sm font-medium text-slate-500">
-                                Summaries to generate (max_articles)
+                        <div className="flex justify-between items-center mb-1.5">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
+                                Max articles to summarize
                             </label>
-                            <span className="text-emerald-600 font-bold">
+                            <span className="text-sm font-bold text-[#4460ef]">
                                 {maxArticles}
                             </span>
                         </div>
@@ -35,44 +116,67 @@ export default function ActionsSection() {
                             onChange={(e) =>
                                 setMaxArticles(Number(e.target.value))
                             }
-                            className="w-full accent-emerald-500 cursor-pointer"
+                            className="w-full cursor-pointer"
                         />
                     </div>
 
                     {/* Force Checkbox */}
-                    <div className="flex items-center gap-3 mt-6 md:mt-2">
+                    <div className="flex items-center gap-3 mt-4 md:mt-4">
                         <input
+                            id="force-resummarize"
                             type="checkbox"
                             checked={forceResummarize}
                             onChange={() =>
                                 setForceResummarize(!forceResummarize)
                             }
-                            className="h-5 w-5 accent-emerald-500"
+                            className="h-4 w-4 rounded"
                         />
-                        <label className="text-sm font-medium text-slate-600 cursor-pointer" onClick={() => setForceResummarize(!forceResummarize)}>
+                        <label htmlFor="force-resummarize" className="text-sm text-[#191919] cursor-pointer select-none">
                             Force re-summarize (overwrite existing)
                         </label>
                     </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="grid md:grid-cols-4 gap-4 pt-4">
-                    <button className="clay-btn-secondary py-3 flex items-center justify-center font-semibold rounded-xl">
-                        Check DB
+                <div className="grid md:grid-cols-4 gap-3 pt-2">
+                    <button 
+                        onClick={handleCheckDb}
+                        disabled={loadingAction !== null}
+                        className="clay-btn-secondary py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                    >
+                        {loadingAction === "check_db" ? "Checking..." : "Check DB"}
                     </button>
 
-                    <button className="clay-btn-secondary py-3 text-emerald-700 bg-emerald-50 flex items-center justify-center font-semibold rounded-xl">
-                        Load from DB
+                    <button 
+                        onClick={handleLoadDb}
+                        disabled={loadingAction !== null}
+                        className="clay-btn-secondary py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                    >
+                        {loadingAction === "load_db" ? "Loading..." : "Load from DB"}
                     </button>
 
-                    <button className="clay-btn bg-teal-500 py-3 flex items-center justify-center font-semibold rounded-xl hover:bg-teal-600">
-                        Fetch live (news only)
+                    <button 
+                        onClick={handleFetchLive}
+                        disabled={loadingAction !== null}
+                        className="clay-btn py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                    >
+                        {loadingAction === "fetch_live" ? "Fetching..." : "Fetch Live"}
                     </button>
 
-                    <button className="clay-btn py-3 flex items-center justify-center font-semibold rounded-xl">
-                        Summarize (target {maxArticles})
+                    <button 
+                        onClick={handleSummarize}
+                        disabled={loadingAction !== null}
+                        className="clay-btn py-2.5 bg-[#ffc857] text-[#191919] hover:bg-[#f5be4f] flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                        style={{ boxShadow: "0 1px 2px rgba(255,200,87,0.3), 0 4px 12px rgba(255,200,87,0.15)" }}
+                    >
+                        {loadingAction === "summarize" ? "Summarizing..." : `Summarize (${maxArticles})`}
                     </button>
                 </div>
+
+                {/* Progress Log */}
+                <AnimatePresence>
+                    {loadingAction && <ProgressLog action={loadingAction} />}
+                </AnimatePresence>
             </div>
         </ClayCard>
     );

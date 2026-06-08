@@ -11,25 +11,26 @@ export default function Topbar() {
             className="
         sticky top-0 z-20
         backdrop-blur-xl
-        bg-[#f8fbf9]/80
-        border-b border-gray-200/60
+        bg-white/80
+        border-b border-[var(--border)]
       "
         >
-            <div className="max-w-6xl mx-auto px-8 h-20 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
 
-                <div className="text-xl font-semibold tracking-tight">
-                    Renoweb
-                    <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent ml-2">
+                <div className="flex items-center gap-2">
+                    <span className="text-xl font-bold tracking-tight text-[#191919]">
+                        Renoweb
+                    </span>
+                    <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-[#023dbb] to-[#308fef] bg-clip-text text-transparent">
                         Intelligence
                     </span>
                 </div>
 
-                {/* <div className="flex items-center gap-6 text-sm text-gray-400">
-                    <span>Enterprise</span>
-                    <div className="h-9 w-9 rounded-full bg-blue-500/20 flex items-center justify-center">
-                        SD
-                    </div>
-                </div> */}
+                <div className="flex items-center gap-3 text-xs text-[var(--muted)]">
+                    <span className="px-2.5 py-1 rounded-full bg-[#f0f3ff] text-[#4460ef] font-semibold tracking-wide uppercase">
+                        News
+                    </span>
+                </div>
             </div>
         </motion.header>
     );
