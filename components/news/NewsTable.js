@@ -4,6 +4,7 @@ import {
     useReactTable,
     getCoreRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
     flexRender,
 } from "@tanstack/react-table";
 import { useMemo } from "react";
@@ -56,20 +57,27 @@ export default function NewsTable({ data = [] }) {
                     }
                 }
             },
+            { header: "GT Score", accessorKey: "google_trends_score", cell: ({ getValue }) => getValue() ?? "-" },
+            { header: "Freshness", accessorKey: "freshness_score", cell: ({ getValue }) => getValue() ?? "-" },
+            { header: "Trend Score", accessorKey: "trend_score", cell: ({ getValue }) => getValue() ?? "-" },
             { header: "Summary", accessorKey: "summary" },
         ],
         []
     );
+
+    const hasTrendScore = data.length > 0 && data[0].trend_score !== undefined;
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         initialState: {
             pagination: {
                 pageSize: 10,
             },
+            sorting: hasTrendScore ? [{ id: "trend_score", desc: true }] : [],
         },
     });
 
@@ -82,7 +90,7 @@ export default function NewsTable({ data = [] }) {
     return (
         <ClayCard>
             <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">5</span>
+                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">7</span>
                 <h2 className="text-lg font-semibold text-[#191919]">Results</h2>
                 {data.length > 0 && (
                     <span className="ml-auto text-xs font-medium text-[var(--muted)] bg-[var(--background)] px-2.5 py-1 rounded-full">

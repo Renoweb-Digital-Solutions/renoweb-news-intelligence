@@ -5,7 +5,7 @@ import ClayCard from "../ui/ClayCard";
 import ProgressLog from "../ui/ProgressLog";
 import { useState } from "react";
 
-export default function CompanySection({ setKeywords }) {
+export default function CompanySection({ setKeywords, setRunId }) {
     const [companyName, setCompanyName] = useState("");
     const [companyDescription, setCompanyDescription] = useState("");
     const [maxKeywords, setMaxKeywords] = useState(12);
@@ -31,8 +31,16 @@ export default function CompanySection({ setKeywords }) {
 
             const data = await res.json();
 
+            if (data.error) {
+                alert(`Error: ${data.error}${data.details ? ` - ${data.details}` : ''}`);
+                return;
+            }
+
             if (data?.suggested_keywords) {
                 setKeywords(data.suggested_keywords);
+            }
+            if (data?.run_id !== undefined) {
+                setRunId(data.run_id);
             }
 
         } catch (err) {
@@ -73,9 +81,14 @@ export default function CompanySection({ setKeywords }) {
                             <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
                                 Max Keywords
                             </label>
-                            <span className="text-sm font-bold text-[#4460ef]">
-                                {maxKeywords}
-                            </span>
+                            <input
+                                type="number"
+                                min={1}
+                                max={30}
+                                value={maxKeywords}
+                                onChange={(e) => setMaxKeywords(Number(e.target.value))}
+                                className="w-16 text-sm font-bold text-[#4460ef] bg-transparent text-right outline-none appearance-none"
+                            />
                         </div>
 
                         <input

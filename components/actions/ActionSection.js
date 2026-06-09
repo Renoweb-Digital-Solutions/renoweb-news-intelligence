@@ -20,6 +20,10 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                 body: JSON.stringify({ keywords, from_date: fromDate, to_date: toDate, news_limit: maxArticles })
             });
             const data = await res.json();
+            if (data.error) {
+                alert(`Error: ${data.error}${data.details ? ` - ${data.details}` : ''}`);
+                return;
+            }
             setDbHasResult(data);
             alert(data.has_any ? "News found in DB!" : "No news found in DB.");
         } catch (error) {
@@ -38,11 +42,37 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                 body: JSON.stringify({ keywords, from_date: fromDate, to_date: toDate, news_limit: maxArticles })
             });
             const data = await res.json();
+            if (data.error) {
+                alert(`Error: ${data.error}${data.details ? ` - ${data.details}` : ''}`);
+                return;
+            }
             if (data.news_table) {
                 setNewsData(data.news_table);
             }
         } catch (error) {
             console.error("Load DB failed:", error);
+        } finally {
+            setLoadingAction(null);
+        }
+    };
+
+    const handleFetchNewsTrends = async () => {
+        setLoadingAction("fetch_news_trends");
+        try {
+            const res = await fetch("/api/news/aggregate-with-trends", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ run_id: runId, keywords, from_date: fromDate, to_date: toDate })
+            });
+            const data = await res.json();
+            if (data.error) {
+                alert(`Error: ${data.error}${data.details ? ` - ${data.details}` : ''}`);
+                return;
+            }
+            if (data.news_table) setNewsData(data.news_table);
+            if (data.run_id !== undefined) setRunId(data.run_id);
+        } catch (error) {
+            console.error("Fetch news trends failed:", error);
         } finally {
             setLoadingAction(null);
         }
@@ -57,6 +87,10 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                 body: JSON.stringify({ run_id: runId, keywords, from_date: fromDate, to_date: toDate })
             });
             const data = await res.json();
+            if (data.error) {
+                alert(`Error: ${data.error}${data.details ? ` - ${data.details}` : ''}`);
+                return;
+            }
             if (data.news_table) setNewsData(data.news_table);
             if (data.run_id !== undefined) setRunId(data.run_id);
         } catch (error) {
@@ -75,6 +109,10 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                 body: JSON.stringify({ run_id: runId, max_articles: maxArticles, force: forceResummarize })
             });
             const data = await res.json();
+            if (data.error) {
+                alert(`Error: ${data.error}${data.details ? ` - ${data.details}` : ''}`);
+                return;
+            }
             if (data.news_table) setNewsData(data.news_table);
             if (data.run_id !== undefined) setRunId(data.run_id);
             alert(`Summarized: ${data.summarized}, Skipped: ${data.skipped}, Failed: ${data.failed}`);
@@ -89,7 +127,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
         <ClayCard>
             <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">4</span>
+                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">6</span>
                     <h2 className="text-lg font-semibold text-[#191919]">
                         Actions
                     </h2>
@@ -103,9 +141,14 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                             <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
                                 Max articles to summarize
                             </label>
-                            <span className="text-sm font-bold text-[#4460ef]">
-                                {maxArticles}
-                            </span>
+                            <input
+                                type="number"
+                                min={1}
+                                max={100}
+                                value={maxArticles}
+                                onChange={(e) => setMaxArticles(Number(e.target.value))}
+                                className="w-16 text-sm font-bold text-[#4460ef] bg-transparent text-right outline-none appearance-none"
+                            />
                         </div>
 
                         <input
@@ -138,7 +181,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                 </div>
 
                 {/* Action Buttons */}
-                <div className="grid md:grid-cols-4 gap-3 pt-2">
+                <div className="grid md:grid-cols-5 gap-3 pt-2">
                     <button 
                         onClick={handleCheckDb}
                         disabled={loadingAction !== null}
@@ -161,6 +204,14 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                         className="clay-btn py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
                     >
                         {loadingAction === "fetch_live" ? "Fetching..." : "Fetch Live"}
+                    </button>
+
+                    <button 
+                        onClick={handleFetchNewsTrends}
+                        disabled={loadingAction !== null}
+                        className="clay-btn py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50 bg-[#eef2ff] text-[#4460ef] hover:bg-[#e0e7ff] border border-[#c7d2fe]"
+                    >
+                        {loadingAction === "fetch_news_trends" ? "Fetching..." : "News + Trends"}
                     </button>
 
                     <button 

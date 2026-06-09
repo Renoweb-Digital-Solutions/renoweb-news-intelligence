@@ -9,7 +9,7 @@ export async function POST(req) {
         while (retries > 0) {
             try {
                 res = await fetch(
-                    `${process.env.BACKEND_URL}/v1/keywords/suggest`,
+                    `${process.env.BACKEND_URL}/v1/youtube/search`,
                     {
                         method: "POST",
                         headers: {
@@ -43,7 +43,7 @@ export async function POST(req) {
         const data = await res.json();
         return Response.json(data);
     } catch (error) {
-        console.error("Unexpected error in suggest route:", error);
+        console.error("Unexpected error in youtube route:", error);
         return Response.json({ error: "Internal server error", details: error.message }, { status: 500 });
     }
 }
