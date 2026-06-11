@@ -64,7 +64,7 @@ export default function TrendsTable({ data = [] }) {
     return (
         <ClayCard>
             <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">5</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">5</span>
                 <h2 className="text-lg font-semibold text-[#191919]">Trends Score</h2>
                 {data.length > 0 && (
                     <span className="ml-auto text-xs font-medium text-[var(--muted)] bg-[var(--background)] px-2.5 py-1 rounded-full">
@@ -74,11 +74,11 @@ export default function TrendsTable({ data = [] }) {
             </div>
 
             {data.length === 0 ? (
-                <div className="text-sm text-[var(--muted)] p-8 border border-dashed border-[var(--border)] rounded-xl text-center">
+                <div className="text-sm text-[var(--muted)] p-8 border-2 border-dashed border-[var(--border)] rounded-lg text-center bg-white">
                     No trends fetched yet.
                 </div>
             ) : (
-                <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
+                <div className="overflow-x-auto rounded-lg border-2 border-[var(--border)] bg-white shadow-[4px_4px_0_var(--border)]">
                     <table className="w-full text-sm border-separate border-spacing-0">
                         <thead className="text-[var(--muted)] text-xs uppercase tracking-wider bg-[var(--background)]">
                             {table.getHeaderGroups().map((headerGroup) => (

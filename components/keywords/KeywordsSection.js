@@ -34,7 +34,7 @@ export default function KeywordsSection({ keywords, setKeywords }) {
     return (
         <ClayCard>
             <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">2</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">2</span>
                 <h2 className="text-lg font-semibold text-[#191919]">
                     Selected Keywords
                 </h2>
@@ -77,12 +77,12 @@ export default function KeywordsSection({ keywords, setKeywords }) {
                     onChange={(e) => setNewKeyword(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Add custom keyword"
-                    className="clay-input flex-1 px-3.5 py-2.5"
+                    className="neo-input flex-1 px-3.5 py-2.5"
                 />
 
                 <button
                     onClick={addKeyword}
-                    className="clay-btn-secondary px-5 py-2.5 flex items-center gap-2 whitespace-nowrap text-sm"
+                    className="neo-btn-secondary px-5 py-2.5 flex items-center gap-2 whitespace-nowrap text-sm"
                 >
                     <Plus size={16} />
                     Add

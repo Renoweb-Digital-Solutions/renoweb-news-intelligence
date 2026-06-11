@@ -57,9 +57,9 @@ export default function RedditTable({ data = [] }) {
         <ClayCard>
             <h2 className="text-lg font-semibold text-[#191919] mb-6">Reddit Results</h2>
             {data.length === 0 ? (
-                <div className="text-sm text-[var(--muted)] p-8 border border-dashed border-[var(--border)] rounded-xl text-center">No results.</div>
+                <div className="text-sm text-[var(--muted)] p-8 border-2 border-dashed border-[var(--border)] rounded-lg text-center bg-white">No results.</div>
             ) : (
-                <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
+                <div className="overflow-x-auto rounded-lg border-2 border-[var(--border)] bg-white shadow-[4px_4px_0_var(--border)]">
                     <table className="w-full text-sm border-separate border-spacing-0">
                         <thead className="text-[var(--muted)] text-xs uppercase tracking-wider bg-[var(--background)]">
                             {table.getHeaderGroups().map(hg => (
@@ -77,7 +77,7 @@ export default function RedditTable({ data = [] }) {
                         </tbody>
                     </table>
                     {data.length > 10 && (
-                        <div className="flex items-center justify-between px-4 py-3 border-t border-[var(--border)] bg-[var(--background)]">
+                        <div className="flex items-center justify-between px-4 py-3 border-t-2 border-[var(--border)] bg-[var(--background)]">
                             <div className="text-sm text-[var(--muted)]">
                                 Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
                             </div>
@@ -85,14 +85,14 @@ export default function RedditTable({ data = [] }) {
                                 <button
                                     onClick={() => table.previousPage()}
                                     disabled={!table.getCanPreviousPage()}
-                                    className="px-3 py-1.5 text-sm bg-white border border-[var(--border)] text-[#191919] rounded-lg disabled:opacity-50 hover:bg-[#f8f9fc] transition-colors"
+                                    className="neo-btn-secondary px-3 py-1.5 text-sm disabled:opacity-50"
                                 >
                                     Previous
                                 </button>
                                 <button
                                     onClick={() => table.nextPage()}
                                     disabled={!table.getCanNextPage()}
-                                    className="px-3 py-1.5 text-sm bg-white border border-[var(--border)] text-[#191919] rounded-lg disabled:opacity-50 hover:bg-[#f8f9fc] transition-colors"
+                                    className="neo-btn-secondary px-3 py-1.5 text-sm disabled:opacity-50"
                                 >
                                     Next
                                 </button>

@@ -57,7 +57,7 @@ export default function CompanySection({ setKeywords, setRunId }) {
         >
             <ClayCard>
                 <div className="flex items-center gap-3 mb-6">
-                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">1</span>
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">1</span>
                     <h2 className="text-lg font-semibold text-[#191919]">
                         Company Details
                     </h2>
@@ -72,7 +72,7 @@ export default function CompanySection({ setKeywords, setRunId }) {
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
                             placeholder="e.g. Renoweb Digital Solutions"
-                            className="clay-input w-full px-3.5 py-2.5"
+                            className="neo-input w-full px-3.5 py-2.5"
                         />
                     </div>
 
@@ -115,14 +115,14 @@ export default function CompanySection({ setKeywords, setRunId }) {
                         }
                         rows={3}
                         placeholder="Describe what your company does, its industry, target audience..."
-                        className="clay-input w-full px-3.5 py-2.5 resize-none"
+                        className="neo-input w-full px-3.5 py-2.5 resize-none"
                     />
                 </div>
 
                 <button
                     onClick={suggestKeywords}
                     disabled={loading}
-                    className="clay-btn mt-6 px-6 py-2.5 text-sm disabled:opacity-50"
+                    className="neo-btn mt-6 px-6 py-2.5 text-sm disabled:opacity-50"
                 >
                     {loading ? "Generating..." : "Suggest Keywords"}
                 </button>

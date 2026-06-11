@@ -1,22 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* ── Renoweb Brand Palette ── */
-  --rw-deep-blue:    #023dbb;
+  /* ── Snoopy Neubrutalism Palette ── */
   --rw-royal-blue:   #4460ef;
-  --rw-bright-blue:  #308fef;
-  --rw-cyan:         #4ec8ef;
   --rw-yellow:       #ffc857;
   --rw-dark:         #191919;
+  --rw-red:          #d95b5b;
+  --rw-sky:          #a8d8ff;
 
   /* ── Semantic Tokens ── */
-  --background: #f5f7fb;
+  --background: #fff8ec;
   --foreground: #191919;
-  --surface:    #ffffff;
-  --border:     #e2e6ef;
+  --surface:    #fffdf7;
+  --border:     #191919;
   --muted:      #6b7a99;
   --accent:     #4460ef;
-  --accent-hover: #023dbb;
 }
 
 @theme inline {
@@ -29,14 +27,19 @@
 /* Force light theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #f5f7fb;
+    --background: #fff8ec;
     --foreground: #191919;
   }
 }
 
 body {
-  background: linear-gradient(165deg, #f5f7fb 0%, #eaf4fb 40%, #ddeefb 70%, #d2ecfa 100%);
-  background-attachment: fixed;
+  background-color: var(--background);
+  /* Subtle halftone comic dot pattern via radial gradient */
+  background-image: radial-gradient(#191919 0.5px, transparent 0.5px);
+  background-size: 16px 16px;
+  background-position: 0 0;
+  /* Make the dots very subtle so it feels paper-like and not distracting */
+  background-blend-mode: overlay;
   color: var(--foreground);
   font-family: var(--font-sans);
   letter-spacing: -0.01em;
@@ -44,120 +47,132 @@ body {
   min-height: 100vh;
 }
 
-/* ─── Card ─── */
+/* ─── Neo Card ─── */
 
-.clay-card {
+.neo-card {
   background: var(--surface);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  box-shadow:
-    0 1px 3px rgba(2, 61, 187, 0.04),
-    0 4px 12px rgba(2, 61, 187, 0.03);
+  border-radius: 8px;
+  border: 3px solid var(--border);
+  box-shadow: 6px 6px 0px var(--border);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.clay-card:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 2px 6px rgba(2, 61, 187, 0.06),
-    0 8px 24px rgba(2, 61, 187, 0.05);
 }
 
 /* ─── Primary Button ─── */
 
-.clay-btn {
-  background: var(--rw-royal-blue);
-  color: #ffffff;
-  border-radius: 10px;
-  border: none;
-  box-shadow:
-    0 1px 2px rgba(68, 96, 239, 0.3),
-    0 4px 12px rgba(68, 96, 239, 0.15);
-  transition: all 0.15s ease;
-  font-weight: 600;
+.neo-btn {
+  background: var(--rw-yellow);
+  color: var(--foreground);
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  box-shadow: 3px 3px 0px var(--border);
+  transition: all 0.1s ease;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
+  transform: translate(0, 0);
 }
 
-.clay-btn:hover {
-  background: var(--rw-deep-blue);
-  transform: translateY(-1px);
-  box-shadow:
-    0 2px 4px rgba(2, 61, 187, 0.3),
-    0 8px 20px rgba(2, 61, 187, 0.15);
+.neo-btn:hover {
+  background: #ffdb80;
 }
 
-.clay-btn:active {
-  transform: scale(0.98) translateY(0);
-  box-shadow:
-    0 1px 2px rgba(68, 96, 239, 0.3);
+.neo-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--border);
 }
 
 /* ─── Secondary / Ghost Button ─── */
 
-.clay-btn-secondary {
+.neo-btn-secondary {
   background: var(--surface);
-  color: var(--rw-royal-blue);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.15s ease;
-  font-weight: 600;
+  color: var(--foreground);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0px var(--border);
+  transition: all 0.1s ease;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
+  transform: translate(0, 0);
 }
 
-.clay-btn-secondary:hover {
-  background: #f0f3ff;
-  border-color: rgba(68, 96, 239, 0.25);
-  box-shadow: 0 2px 8px rgba(68, 96, 239, 0.08);
+.neo-btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+.neo-btn-secondary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--border);
 }
 
 /* ─── Input ─── */
 
-.clay-input {
+.neo-input {
   background: var(--surface);
-  border-radius: 10px;
-  border: 1px solid var(--border);
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  box-shadow: 2px 2px 0px rgba(25, 25, 25, 0.2);
   transition: all 0.15s ease;
   color: var(--foreground);
   font-size: 0.875rem;
+  font-weight: 500;
 }
 
-.clay-input:focus {
+.neo-input:focus {
   outline: none;
   border-color: var(--rw-royal-blue);
-  box-shadow: 0 0 0 3px rgba(68, 96, 239, 0.12);
+  box-shadow: 4px 4px 0px var(--rw-royal-blue);
+  transform: translate(-2px, -2px);
 }
 
-.clay-input::placeholder {
+.neo-input::placeholder {
   color: #94a3b8;
+  font-weight: 400;
 }
 
 /* ─── Custom range slider accent ─── */
 
 input[type="range"] {
-  accent-color: var(--rw-royal-blue);
+  accent-color: var(--rw-red);
 }
 
 input[type="checkbox"] {
   accent-color: var(--rw-royal-blue);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+
+/* ─── Table Global Overrides ─── */
+th {
+  font-weight: 800 !important;
+  border-bottom: 2px solid var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+td {
+  border-bottom: 1px solid var(--border) !important;
 }
 
 /* ─── Scrollbar ─── */
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--background);
+  border-left: 2px solid var(--border);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c5cdd8;
-  border-radius: 3px;
+  background: var(--rw-royal-blue);
+  border: 2px solid var(--border);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9aa5b4;
+  background: var(--rw-dark);
 }

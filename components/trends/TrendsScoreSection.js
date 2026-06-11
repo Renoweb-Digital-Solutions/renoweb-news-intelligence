@@ -41,7 +41,7 @@ export default function TrendsScoreSection({ keywords = [], setTrendsData }) {
     return (
         <ClayCard>
             <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">4</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">4</span>
                 <h2 className="text-lg font-semibold text-[#191919]">
                     Google Trends Score
                 </h2>
@@ -57,7 +57,7 @@ export default function TrendsScoreSection({ keywords = [], setTrendsData }) {
                         value={geo}
                         onChange={(e) => setGeo(e.target.value)}
                         placeholder="e.g. US"
-                        className="clay-input px-3.5 py-2.5 w-full"
+                        className="neo-input px-3.5 py-2.5 w-full"
                     />
                 </div>
 
@@ -68,7 +68,7 @@ export default function TrendsScoreSection({ keywords = [], setTrendsData }) {
                     <select
                         value={timeframe}
                         onChange={(e) => setTimeframe(e.target.value)}
-                        className="clay-input px-3.5 py-2.5 w-full bg-white"
+                        className="neo-input px-3.5 py-2.5 w-full bg-white"
                     >
                         <option value="now 1-d">now 1-d</option>
                         <option value="now 7-d">now 7-d</option>
@@ -96,7 +96,7 @@ export default function TrendsScoreSection({ keywords = [], setTrendsData }) {
             <button 
                 onClick={handleFetchTrends}
                 disabled={loading}
-                className="clay-btn py-2.5 mt-6 px-6 text-sm font-semibold disabled:opacity-50"
+                className="neo-btn py-2.5 mt-6 px-6 text-sm disabled:opacity-50"
             >
                 {loading ? "Fetching Trends..." : "Get Trends Score"}
             </button>

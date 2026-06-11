@@ -4,7 +4,7 @@ export default function DateRangeSection({ fromDate, setFromDate, toDate, setToD
     return (
         <ClayCard>
             <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">3</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">3</span>
                 <h2 className="text-lg font-semibold text-[#191919]">
                     Date Range
                 </h2>
@@ -17,7 +17,7 @@ export default function DateRangeSection({ fromDate, setFromDate, toDate, setToD
                         type="date"
                         value={fromDate}
                         onChange={(e) => setFromDate(e.target.value)}
-                        className="clay-input px-3.5 py-2.5 w-full"
+                        className="neo-input px-3.5 py-2.5 w-full"
                     />
                 </div>
                 <div className="flex flex-col">
@@ -26,7 +26,7 @@ export default function DateRangeSection({ fromDate, setFromDate, toDate, setToD
                         type="date"
                         value={toDate}
                         onChange={(e) => setToDate(e.target.value)}
-                        className="clay-input px-3.5 py-2.5 w-full"
+                        className="neo-input px-3.5 py-2.5 w-full"
                     />
                 </div>
             </div>
