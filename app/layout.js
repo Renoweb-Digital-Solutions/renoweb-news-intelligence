@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Renoweb News Intelligence",
-  description: "Modern News Intelligence Dashboard",
+  title: "Snooptel",
+  description: "Modern Snooptel Dashboard",
 };
 
 export default function RootLayout({ children }) {

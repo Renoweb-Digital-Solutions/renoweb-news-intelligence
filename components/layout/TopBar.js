@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Chewy } from "next/font/google";
+
+const chewy = Chewy({ weight: '400', subsets: ['latin'] });
 
 export default function Topbar() {
     const [health, setHealth] = useState(null);
@@ -35,12 +38,9 @@ export default function Topbar() {
         >
             <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
 
-                <div className="flex items-center gap-2">
-                    <span className="text-xl font-bold tracking-tight text-[#191919]">
-                        Renoweb
-                    </span>
-                    <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-[#023dbb] to-[#308fef] bg-clip-text text-transparent">
-                        Intelligence
+                <div className={`flex items-center gap-2 ${chewy.className}`}>
+                    <span className="text-3xl text-[#191919] tracking-wide drop-shadow-[2px_2px_0_var(--rw-purple)] -rotate-1">
+                        Snooptel 🕵️‍♂️
                     </span>
                 </div>
 
@@ -56,8 +56,8 @@ export default function Topbar() {
                             </div>
                         </div>
                     )}
-                    <span className="px-2.5 py-1 rounded-full bg-[#f0f3ff] text-[#4460ef] font-semibold tracking-wide uppercase">
-                        News
+                    <span className={`px-3 py-1 rounded-md bg-[var(--rw-yellow)] text-[#191919] text-base tracking-widest border-2 border-[#191919] shadow-[2px_2px_0_#191919] -rotate-3 ${chewy.className}`}>
+                        NEWS!
                     </span>
                 </div>
             </div>

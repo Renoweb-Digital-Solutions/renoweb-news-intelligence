@@ -14,6 +14,9 @@ import YoutubeTable from "@/components/social/YoutubeTable";
 import RedditTable from "@/components/social/RedditTable";
 import AppShell from "@/components/layout/AppShell";
 import { useState, useEffect } from "react";
+import { Chewy } from "next/font/google";
+
+const chewy = Chewy({ weight: '400', subsets: ['latin'] });
 
 export default function Dashboard() {
   const [keywords, setKeywords] = useState([]);
@@ -38,11 +41,11 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-10"
         >
-          <h1 className="text-5xl font-black text-[#191919] tracking-tighter uppercase mb-2">
-            News Intelligence
+          <h1 className={`text-7xl text-[#191919] tracking-wide mb-2 inline-block -rotate-2 origin-left drop-shadow-[3px_3px_0_var(--rw-purple)] ${chewy.className}`}>
+            Snooptel 🕵️‍♂️
           </h1>
-          <p className="text-base font-bold text-[var(--muted)] uppercase tracking-widest border-b-[3px] border-[#191919] inline-block pb-1">
-            Discover, aggregate, and summarize news for your keywords
+          <p className={`text-2xl text-[#191919] tracking-wider border-b-[3px] border-[#191919] inline-block pb-1 rotate-1 ${chewy.className}`}>
+            Snooping around the web to fetch, aggregate, and summarize your news! 🕵️‍♂️📰
           </p>
         </motion.div>
 
