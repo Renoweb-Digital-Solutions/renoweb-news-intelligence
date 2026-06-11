@@ -89,16 +89,16 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
     return (
         <ClayCard>
             <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">8</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">8</span>
                 <h2 className="text-lg font-semibold text-[#191919]">Social Intelligence</h2>
             </div>
 
-            <div className="flex gap-4 mb-6 border-b border-[var(--border)] pb-4">
+            <div className="flex gap-4 mb-6 border-b-[3px] border-[var(--border)] pb-6">
                 {["instagram", "youtube", "reddit"].map(p => (
                     <button
                         key={p}
                         onClick={() => setActivePlatform(p)}
-                        className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors capitalize ${activePlatform === p ? "bg-[#4460ef] text-white" : "bg-[#f0f3ff] text-[#4460ef] hover:bg-[#e4e9ff]"}`}
+                        className={`px-6 py-2 border-2 border-[var(--border)] rounded-md text-sm font-black uppercase tracking-wider transition-all ${activePlatform === p ? "bg-[var(--rw-sky)] text-[#191919] shadow-[3px_3px_0_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "bg-white text-[#191919] hover:bg-[#f0f0f0] shadow-[1px_1px_0_var(--border)] hover:shadow-[2px_2px_0_var(--border)] translate-x-0 translate-y-0"}`}
                     >
                         {p}
                     </button>
@@ -111,7 +111,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                     <select
                         value={selectedKeyword}
                         onChange={(e) => setSelectedKeyword(e.target.value)}
-                        className="clay-input px-3.5 py-2.5 w-full bg-white"
+                        className="neo-input px-3.5 py-2.5 w-full bg-white"
                     >
                         {keywords.length === 0 ? <option value="">No keywords</option> : keywords.map(k => <option key={k} value={k}>{k}</option>)}
                     </select>
@@ -121,7 +121,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                     <>
                         <div>
                             <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">Type</label>
-                            <select value={instaType} onChange={e => setInstaType(e.target.value)} className="clay-input px-3.5 py-2.5 w-full bg-white">
+                            <select value={instaType} onChange={e => setInstaType(e.target.value)} className="neo-input px-3.5 py-2.5 w-full bg-white">
                                 <option value="reels">Reels</option>
                                 <option value="posts">Posts</option>
                                 <option value="stories">Stories</option>
@@ -141,7 +141,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                     <>
                         <div>
                             <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">Date Filter</label>
-                            <select value={ytDateFilter} onChange={e => setYtDateFilter(e.target.value)} className="clay-input px-3.5 py-2.5 w-full bg-white">
+                            <select value={ytDateFilter} onChange={e => setYtDateFilter(e.target.value)} className="neo-input px-3.5 py-2.5 w-full bg-white">
                                 <option value="hour">Past Hour</option>
                                 <option value="today">Today</option>
                                 <option value="week">This Week</option>
@@ -163,7 +163,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                     <>
                         <div>
                             <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">Sort</label>
-                            <select value={redditSort} onChange={e => setRedditSort(e.target.value)} className="clay-input px-3.5 py-2.5 w-full bg-white">
+                            <select value={redditSort} onChange={e => setRedditSort(e.target.value)} className="neo-input px-3.5 py-2.5 w-full bg-white">
                                 <option value="top">Top</option>
                                 <option value="hot">Hot</option>
                                 <option value="new">New</option>
@@ -172,7 +172,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                         </div>
                         <div>
                             <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">Time</label>
-                            <select value={redditTime} onChange={e => setRedditTime(e.target.value)} className="clay-input px-3.5 py-2.5 w-full bg-white">
+                            <select value={redditTime} onChange={e => setRedditTime(e.target.value)} className="neo-input px-3.5 py-2.5 w-full bg-white">
                                 <option value="day">Day</option>
                                 <option value="week">Week</option>
                                 <option value="month">Month</option>
@@ -194,7 +194,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
             <button 
                 onClick={handleSearch}
                 disabled={loadingAction !== null || keywords.length === 0}
-                className="clay-btn py-2.5 px-6 text-sm font-semibold disabled:opacity-50"
+                className="neo-btn py-2.5 px-6 text-sm disabled:opacity-50"
             >
                 {loadingAction ? `Searching ${activePlatform}...` : `Search ${activePlatform}`}
             </button>

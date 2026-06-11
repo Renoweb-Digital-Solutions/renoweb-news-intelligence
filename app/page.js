@@ -38,11 +38,11 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-10"
         >
-          <h1 className="text-3xl font-bold text-[#191919] tracking-tight">
+          <h1 className="text-5xl font-black text-[#191919] tracking-tighter uppercase mb-2">
             News Intelligence
           </h1>
-          <p className="text-sm text-[var(--muted)] mt-1">
-            Discover, aggregate, and summarize news for your keywords.
+          <p className="text-base font-bold text-[var(--muted)] uppercase tracking-widest border-b-[3px] border-[#191919] inline-block pb-1">
+            Discover, aggregate, and summarize news for your keywords
           </p>
         </motion.div>
 

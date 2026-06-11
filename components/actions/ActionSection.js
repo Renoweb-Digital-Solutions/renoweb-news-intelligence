@@ -127,7 +127,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
         <ClayCard>
             <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                    <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-[#f0f3ff] text-[#4460ef] text-xs font-bold">6</span>
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">6</span>
                     <h2 className="text-lg font-semibold text-[#191919]">
                         Actions
                     </h2>
@@ -185,7 +185,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     <button 
                         onClick={handleCheckDb}
                         disabled={loadingAction !== null}
-                        className="clay-btn-secondary py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                        className="neo-btn-secondary py-2.5 flex items-center justify-center text-sm disabled:opacity-50"
                     >
                         {loadingAction === "check_db" ? "Checking..." : "Check DB"}
                     </button>
@@ -193,7 +193,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     <button 
                         onClick={handleLoadDb}
                         disabled={loadingAction !== null}
-                        className="clay-btn-secondary py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                        className="neo-btn-secondary py-2.5 flex items-center justify-center text-sm disabled:opacity-50"
                     >
                         {loadingAction === "load_db" ? "Loading..." : "Load from DB"}
                     </button>
@@ -201,7 +201,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     <button 
                         onClick={handleFetchLive}
                         disabled={loadingAction !== null}
-                        className="clay-btn py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                        className="neo-btn py-2.5 flex items-center justify-center text-sm disabled:opacity-50 bg-[#a8d8ff] text-[#191919]"
                     >
                         {loadingAction === "fetch_live" ? "Fetching..." : "Fetch Live"}
                     </button>
@@ -209,7 +209,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     <button 
                         onClick={handleFetchNewsTrends}
                         disabled={loadingAction !== null}
-                        className="clay-btn py-2.5 flex items-center justify-center text-sm font-semibold disabled:opacity-50 bg-[#eef2ff] text-[#4460ef] hover:bg-[#e0e7ff] border border-[#c7d2fe]"
+                        className="neo-btn py-2.5 flex items-center justify-center text-sm disabled:opacity-50 bg-[#4460ef] text-white"
                     >
                         {loadingAction === "fetch_news_trends" ? "Fetching..." : "News + Trends"}
                     </button>
@@ -217,7 +217,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     <button 
                         onClick={handleSummarize}
                         disabled={loadingAction !== null}
-                        className="clay-btn py-2.5 bg-[#ffc857] text-[#191919] hover:bg-[#f5be4f] flex items-center justify-center text-sm font-semibold disabled:opacity-50"
+                        className="neo-btn py-2.5 bg-[var(--rw-yellow)] text-[#191919] hover:bg-[#ffdb80] flex items-center justify-center text-sm disabled:opacity-50"
                         style={{ boxShadow: "0 1px 2px rgba(255,200,87,0.3), 0 4px 12px rgba(255,200,87,0.15)" }}
                     >
                         {loadingAction === "summarize" ? "Summarizing..." : `Summarize (${maxArticles})`}

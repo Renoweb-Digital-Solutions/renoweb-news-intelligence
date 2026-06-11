@@ -168,20 +168,20 @@ export default function ProgressLog({ action }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
         >
-            <div className="mt-4 rounded-xl border border-[var(--border)] bg-[#191919] text-white overflow-hidden">
+            <div className="mt-4 rounded-lg border-2 border-[var(--border)] bg-[#fffdf7] shadow-[4px_4px_0_var(--border)] text-[#191919] overflow-hidden">
                 {/* Header bar */}
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-white/[0.03]">
+                <div className="flex items-center justify-between px-4 py-2.5 border-b-2 border-[var(--border)] bg-[var(--rw-yellow)]">
                     <div className="flex items-center gap-3">
                         {/* Pulsing dot */}
                         <span className="relative flex h-2.5 w-2.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ec8ef] opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4ec8ef]"></span>
                         </span>
-                        <span className="text-sm font-medium text-white/90">
+                        <span className="text-sm font-black uppercase tracking-widest text-[#191919]">
                             {actionLabels[action] || "Processing"}
                         </span>
                     </div>
-                    <div className="flex items-center gap-4 text-xs text-white/50 font-mono">
+                    <div className="flex items-center gap-4 text-xs font-bold text-[#191919] font-mono">
                         <span>⏱ {formatTime(elapsed)}</span>
                         <span>ETA {estimateETA(action, elapsed)}</span>
                     </div>
@@ -198,20 +198,20 @@ export default function ProgressLog({ action }) {
                                 transition={{ duration: 0.25 }}
                                 className="flex items-start gap-2"
                             >
-                                <span className="text-white/25 shrink-0 tabular-nums w-10 text-right">
+                                <span className="text-[var(--muted)] shrink-0 tabular-nums w-10 text-right font-bold">
                                     {formatTime(log.time)}
                                 </span>
-                                <span className="text-[#4ec8ef]">›</span>
-                                <span className="text-white/70">{log.text}</span>
+                                <span className="text-[#4460ef] font-bold">›</span>
+                                <span className="text-[#191919] font-medium">{log.text}</span>
                             </motion.div>
                         ))}
                     </AnimatePresence>
 
                     {/* Blinking cursor */}
                     <div className="flex items-center gap-2 mt-1">
-                        <span className="text-white/25 w-10 text-right tabular-nums">{formatTime(elapsed)}</span>
-                        <span className="text-[#4ec8ef]">›</span>
-                        <span className="inline-block w-1.5 h-3.5 bg-[#4ec8ef] animate-pulse rounded-sm"></span>
+                        <span className="text-[var(--muted)] w-10 text-right tabular-nums font-bold">{formatTime(elapsed)}</span>
+                        <span className="text-[#4460ef] font-bold">›</span>
+                        <span className="inline-block w-1.5 h-3.5 bg-[#4460ef] animate-pulse rounded-sm"></span>
                     </div>
                 </div>
             </div>
