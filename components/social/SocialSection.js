@@ -21,6 +21,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
     const [redditLimit, setRedditLimit] = useState(30);
     const [redditSort, setRedditSort] = useState("top");
     const [redditTime, setRedditTime] = useState("week");
+    const [redditNsfw, setRedditNsfw] = useState(false);
 
     useEffect(() => {
         if (keywords.length > 0 && !keywords.includes(selectedKeyword)) {
@@ -186,6 +187,16 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                                 <input type="number" min={1} max={50} value={redditLimit} onChange={e => setRedditLimit(Number(e.target.value))} className="w-12 text-xs font-bold text-[#4460ef] bg-transparent text-right outline-none appearance-none" />
                             </div>
                             <input type="range" min={1} max={50} value={redditLimit} onChange={e => setRedditLimit(Number(e.target.value))} className="w-full mt-2 cursor-pointer" />
+                        </div>
+                        <div className="flex items-center mt-6">
+                            <input 
+                                type="checkbox" 
+                                id="redditNsfw" 
+                                checked={redditNsfw} 
+                                onChange={e => setRedditNsfw(e.target.checked)} 
+                                className="w-4 h-4 text-[#4460ef] bg-white border-2 border-[var(--border)] rounded focus:ring-[#4460ef]"
+                            />
+                            <label htmlFor="redditNsfw" className="ml-2 text-xs font-medium text-[#191919] cursor-pointer">Include NSFW</label>
                         </div>
                     </>
                 )}
