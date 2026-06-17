@@ -71,8 +71,8 @@ export default function InstagramTable({ data = [] }) {
                         </tbody>
                     </table>
                     {data.length > 10 && (
-                        <div className="flex items-center justify-between px-4 py-3 border-t-2 border-[var(--border)] bg-[var(--background)]">
-                            <div className="text-sm text-[var(--muted)]">
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-3 border-t-2 border-[var(--border)] bg-[var(--background)]">
+                            <div className="text-sm text-[var(--muted)] font-medium">
                                 Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
                             </div>
                             <div className="flex gap-2">

@@ -71,18 +71,18 @@ export default function KeywordsSection({ keywords, setKeywords }) {
             </div>
 
             {/* Add custom keyword */}
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <input
                     value={newKeyword}
                     onChange={(e) => setNewKeyword(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Add custom keyword"
-                    className="neo-input flex-1 px-3.5 py-2.5"
+                    className="neo-input flex-1 min-w-0 px-3.5 py-2.5"
                 />
 
                 <button
                     onClick={addKeyword}
-                    className="neo-btn-secondary px-5 py-2.5 flex items-center gap-2 whitespace-nowrap text-sm"
+                    className="neo-btn-secondary px-5 py-2.5 flex items-center justify-center gap-2 whitespace-nowrap text-sm w-full sm:w-auto"
                 >
                     <Plus size={16} />
                     Add

@@ -36,7 +36,7 @@ export default function Topbar() {
         border-b border-[var(--border)]
       "
         >
-            <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
 
                 <div className={`flex items-center gap-2 ${chewy.className}`}>
                     <span className="text-3xl text-[#191919] tracking-wide drop-shadow-[2px_2px_0_var(--rw-purple)] -rotate-1">
@@ -47,7 +47,7 @@ export default function Topbar() {
                 <div className="flex items-center gap-3 text-xs">
                     {health && (
                         <div className="flex items-center gap-2 mr-4">
-                            <span className="text-[var(--muted)] font-medium">Services:</span>
+                            <span className="text-[var(--muted)] font-medium hidden sm:inline">Services:</span>
                             <div className="flex items-center gap-1.5">
                                 <span title="Database" className={`w-2 h-2 rounded-full ${health.db ? 'bg-green-500' : 'bg-red-500'}`}></span>
                                 <span title="SerpApi" className={`w-2 h-2 rounded-full ${health.serpapi_configured ? 'bg-green-500' : 'bg-red-500'}`}></span>

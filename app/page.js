@@ -34,17 +34,17 @@ export default function Dashboard() {
 
   return (
     <AppShell>
-      <div className="min-h-screen px-8 py-10 max-w-7xl mx-auto">
+      <div className="px-4 sm:px-8 py-6 sm:py-10 max-w-7xl mx-auto">
 
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-10"
         >
-          <h1 className={`text-7xl text-[#191919] tracking-wide mb-2 inline-block -rotate-2 origin-left drop-shadow-[3px_3px_0_var(--rw-purple)] ${chewy.className}`}>
+          <h1 className={`text-4xl sm:text-6xl md:text-7xl text-[#191919] tracking-wide mb-2 inline-block -rotate-2 origin-left drop-shadow-[3px_3px_0_var(--rw-purple)] ${chewy.className}`}>
             Snooptel 🕵️‍♂️
           </h1>
-          <p className={`text-2xl text-[#191919] tracking-wider border-b-[3px] border-[#191919] inline-block pb-1 rotate-1 ${chewy.className}`}>
+          <p className={`text-base sm:text-lg md:text-2xl text-[#191919] tracking-wider border-b-[3px] border-[#191919] inline-block pb-1 rotate-1 ${chewy.className}`}>
             Snooping around the web to fetch, aggregate, and summarize your news! 🕵️‍♂️📰
           </p>
         </motion.div>

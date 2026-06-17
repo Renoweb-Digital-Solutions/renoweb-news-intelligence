@@ -164,7 +164,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     </div>
 
                     {/* Force Checkbox */}
-                    <div className="flex items-center gap-3 mt-4 md:mt-4">
+                    <div className="flex items-center gap-3 h-[42px] md:mt-[26px] mt-0">
                         <input
                             id="force-resummarize"
                             type="checkbox"
@@ -181,7 +181,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                 </div>
 
                 {/* Action Buttons */}
-                <div className="grid md:grid-cols-5 gap-3 pt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 pt-2">
                     <button 
                         onClick={handleCheckDb}
                         disabled={loadingAction !== null}
@@ -217,7 +217,7 @@ export default function ActionsSection({ keywords = [], fromDate, toDate, runId,
                     <button 
                         onClick={handleSummarize}
                         disabled={loadingAction !== null}
-                        className="neo-btn py-2.5 bg-[var(--rw-yellow)] text-[#191919] hover:bg-[#ffdb80] flex items-center justify-center text-sm disabled:opacity-50"
+                        className="neo-btn py-2.5 bg-[var(--rw-yellow)] text-[#191919] hover:bg-[#ffdb80] flex items-center justify-center text-sm disabled:opacity-50 col-span-2 sm:col-span-1"
                         style={{ boxShadow: "0 1px 2px rgba(255,200,87,0.3), 0 4px 12px rgba(255,200,87,0.15)" }}
                     >
                         {loadingAction === "summarize" ? "Summarizing..." : `Summarize (${maxArticles})`}

@@ -79,7 +79,7 @@ export default function TrendsScoreSection({ keywords = [], setTrendsData }) {
                     </select>
                 </div>
 
-                <div className="flex items-center gap-3 h-[42px] mt-[26px]">
+                <div className="flex items-center gap-3 h-[42px] md:mt-[26px] mt-0">
                     <input
                         id="include-related"
                         type="checkbox"

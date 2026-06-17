@@ -89,11 +89,13 @@ export default function NewsTable({ data = [] }) {
 
     return (
         <ClayCard>
-            <div className="flex items-center gap-3 mb-6">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">7</span>
-                <h2 className="text-lg font-semibold text-[#191919]">Results</h2>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                <div className="flex items-center gap-3">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--rw-yellow)] text-[#191919] text-sm font-black border-2 border-[#191919] shadow-[2px_2px_0_#191919]">7</span>
+                    <h2 className="text-lg font-semibold text-[#191919]">Results</h2>
+                </div>
                 {data.length > 0 && (
-                    <span className="ml-auto text-xs font-medium text-[var(--muted)] bg-[var(--background)] px-2.5 py-1 rounded-full">
+                    <span className="self-start sm:self-center text-xs font-medium text-[var(--muted)] bg-[var(--background)] px-2.5 py-1 rounded-full">
                         {data.length} articles
                     </span>
                 )}
@@ -143,12 +145,12 @@ export default function NewsTable({ data = [] }) {
                     </div>
 
                     {/* Pagination */}
-                    <div className="flex items-center justify-between mt-4 px-1">
-                        <span className="text-xs text-[var(--muted)]">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 px-1">
+                        <span className="text-xs font-medium text-[var(--muted)]">
                             Showing {startRow}–{endRow} of {totalRows}
                         </span>
 
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-2">
                             <button
                                 onClick={() => table.setPageIndex(0)}
                                 disabled={!table.getCanPreviousPage()}
@@ -166,8 +168,13 @@ export default function NewsTable({ data = [] }) {
                                 <ChevronLeft size={16} />
                             </button>
 
+                            {/* Page counter for mobile, page numbers for desktop */}
+                            <span className="text-xs font-semibold text-[var(--muted)] sm:hidden px-2">
+                                Page {pageIndex + 1} of {pageCount}
+                            </span>
+
                             {/* Page numbers */}
-                            <div className="flex items-center gap-0.5 mx-1">
+                            <div className="hidden sm:flex items-center gap-0.5 mx-1">
                                 {Array.from({ length: pageCount }, (_, i) => i).map((i) => (
                                     <button
                                         key={i}

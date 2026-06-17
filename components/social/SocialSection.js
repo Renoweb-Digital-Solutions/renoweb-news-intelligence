@@ -94,12 +94,12 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                 <h2 className="text-lg font-semibold text-[#191919]">Social Intelligence</h2>
             </div>
 
-            <div className="flex gap-4 mb-6 border-b-[3px] border-[var(--border)] pb-6">
+            <div className="flex flex-wrap gap-2 sm:gap-4 mb-6 border-b-[3px] border-[var(--border)] pb-6">
                 {["instagram", "youtube", "reddit"].map(p => (
                     <button
                         key={p}
                         onClick={() => setActivePlatform(p)}
-                        className={`px-6 py-2 border-2 border-[var(--border)] rounded-md text-sm font-black uppercase tracking-wider transition-all ${activePlatform === p ? "bg-[var(--rw-sky)] text-[#191919] shadow-[3px_3px_0_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "bg-white text-[#191919] hover:bg-[#f0f0f0] shadow-[1px_1px_0_var(--border)] hover:shadow-[2px_2px_0_var(--border)] translate-x-0 translate-y-0"}`}
+                        className={`px-3 sm:px-6 py-2 border-2 border-[var(--border)] rounded-md text-sm font-black uppercase tracking-wider transition-all ${activePlatform === p ? "bg-[var(--rw-sky)] text-[#191919] shadow-[3px_3px_0_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "bg-white text-[#191919] hover:bg-[#f0f0f0] shadow-[1px_1px_0_var(--border)] hover:shadow-[2px_2px_0_var(--border)] translate-x-0 translate-y-0"}`}
                     >
                         {p}
                     </button>
@@ -188,7 +188,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                             </div>
                             <input type="range" min={1} max={50} value={redditLimit} onChange={e => setRedditLimit(Number(e.target.value))} className="w-full mt-2 cursor-pointer" />
                         </div>
-                        <div className="flex items-center mt-6">
+                        <div className="flex items-center h-[42px] md:mt-6 mt-0">
                             <input 
                                 type="checkbox" 
                                 id="redditNsfw" 
