@@ -12,6 +12,7 @@ import SocialSection from "@/components/social/SocialSection";
 import InstagramTable from "@/components/social/InstagramTable";
 import YoutubeTable from "@/components/social/YoutubeTable";
 import RedditTable from "@/components/social/RedditTable";
+import LinkedinTable from "@/components/social/LinkedinTable";
 import AppShell from "@/components/layout/AppShell";
 import { useState, useEffect } from "react";
 import { Chewy } from "next/font/google";
@@ -31,6 +32,7 @@ export default function Dashboard() {
   const [instagramData, setInstagramData] = useState([]);
   const [youtubeData, setYoutubeData] = useState([]);
   const [redditData, setRedditData] = useState([]);
+  const [linkedinData, setLinkedinData] = useState([]);
 
   return (
     <AppShell>
@@ -78,6 +80,7 @@ export default function Dashboard() {
             setInstagramData={setInstagramData}
             setYoutubeData={setYoutubeData}
             setRedditData={setRedditData}
+            setLinkedinData={setLinkedinData}
           />
 
           {activePlatform === "instagram" && instagramData.length > 0 && (
@@ -88,6 +91,9 @@ export default function Dashboard() {
           )}
           {activePlatform === "reddit" && redditData.length > 0 && (
             <RedditTable data={redditData} />
+          )}
+          {activePlatform === "linkedin" && linkedinData.length > 0 && (
+            <LinkedinTable data={linkedinData} />
           )}
         </div>
       </div>

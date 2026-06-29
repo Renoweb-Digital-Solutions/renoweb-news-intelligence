@@ -5,7 +5,7 @@ import ClayCard from "../ui/ClayCard";
 import { AnimatePresence } from "framer-motion";
 import ProgressLog from "../ui/ProgressLog";
 
-export default function SocialSection({ keywords = [], setInstagramData, setYoutubeData, setRedditData, activePlatform, setActivePlatform }) {
+export default function SocialSection({ keywords = [], setInstagramData, setYoutubeData, setRedditData, setLinkedinData, activePlatform, setActivePlatform }) {
     const [selectedKeyword, setSelectedKeyword] = useState("");
     const [loadingAction, setLoadingAction] = useState(null);
 
@@ -22,6 +22,11 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
     const [redditSort, setRedditSort] = useState("top");
     const [redditTime, setRedditTime] = useState("week");
     const [redditNsfw, setRedditNsfw] = useState(false);
+
+    // Linkedin config
+    const [linkedinDateFilter, setLinkedinDateFilter] = useState("past-week");
+    const [linkedinSortType, setLinkedinSortType] = useState("relevance");
+    const [linkedinLimit, setLinkedinLimit] = useState(50);
 
     useEffect(() => {
         if (keywords.length > 0 && !keywords.includes(selectedKeyword)) {
@@ -78,6 +83,22 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                 const data = await res.json();
                 if (data.error) throw new Error(`${data.error} - ${data.details || ''}`);
                 setRedditData(data.results || []);
+            } else if (activePlatform === "linkedin") {
+                const res = await fetch("/api/social/linkedin", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        keyword: selectedKeyword,
+                        date_filter: linkedinDateFilter,
+                        sort_type: linkedinSortType,
+                        total_posts: linkedinLimit,
+                        page_number: 1,
+                        limit: linkedinLimit
+                    })
+                });
+                const data = await res.json();
+                if (data.error) throw new Error(`${data.error} - ${data.details || ''}`);
+                setLinkedinData(data.results || []);
             }
         } catch (error) {
             console.error(`${activePlatform} search failed:`, error);
@@ -95,7 +116,7 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
             </div>
 
             <div className="flex flex-wrap gap-2 sm:gap-4 mb-6 border-b-[3px] border-[var(--border)] pb-6">
-                {["instagram", "youtube", "reddit"].map(p => (
+                {["instagram", "youtube", "reddit", "linkedin"].map(p => (
                     <button
                         key={p}
                         onClick={() => setActivePlatform(p)}
@@ -197,6 +218,33 @@ export default function SocialSection({ keywords = [], setInstagramData, setYout
                                 className="w-4 h-4 text-[#4460ef] bg-white border-2 border-[var(--border)] rounded focus:ring-[#4460ef]"
                             />
                             <label htmlFor="redditNsfw" className="ml-2 text-xs font-medium text-[#191919] cursor-pointer">Include NSFW</label>
+                        </div>
+                    </>
+                )}
+
+                {activePlatform === "linkedin" && (
+                    <>
+                        <div>
+                            <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">Date Filter</label>
+                            <select value={linkedinDateFilter} onChange={e => setLinkedinDateFilter(e.target.value)} className="neo-input px-3.5 py-2.5 w-full bg-white">
+                                <option value="past-24h">Past 24 Hours</option>
+                                <option value="past-week">Past Week</option>
+                                <option value="past-month">Past Month</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="text-xs font-medium text-[var(--muted)] mb-1.5 block uppercase tracking-wider">Sort By</label>
+                            <select value={linkedinSortType} onChange={e => setLinkedinSortType(e.target.value)} className="neo-input px-3.5 py-2.5 w-full bg-white">
+                                <option value="relevance">Relevance</option>
+                                <option value="date_posted">Date Posted</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-center mb-1.5">
+                                <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">Limit</label>
+                                <input type="number" min={1} max={100} value={linkedinLimit} onChange={e => setLinkedinLimit(Number(e.target.value))} className="w-12 text-xs font-bold text-[#4460ef] bg-transparent text-right outline-none appearance-none" />
+                            </div>
+                            <input type="range" min={1} max={100} value={linkedinLimit} onChange={e => setLinkedinLimit(Number(e.target.value))} className="w-full mt-2 cursor-pointer" />
                         </div>
                     </>
                 )}
