@@ -37,7 +37,19 @@ export default function CompanySection({ setKeywords, setRunId }) {
             }
 
             if (data?.suggested_keywords) {
-                setKeywords(data.suggested_keywords);
+                const cleanedKeywords = data.suggested_keywords.map(kw => {
+                    if (!companyName) return kw;
+                    // Remove company name from start (case-insensitive) and any trailing separator
+                    const escapedCompanyName = companyName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`^${escapedCompanyName}\\s*[:-]?\\s*`, 'i');
+                    let cleanKw = kw.replace(regex, '').trim();
+                    // Capitalize the first letter
+                    if (cleanKw.length > 0) {
+                        cleanKw = cleanKw.charAt(0).toUpperCase() + cleanKw.slice(1);
+                    }
+                    return cleanKw;
+                });
+                setKeywords(cleanedKeywords);
             }
             if (data?.run_id !== undefined) {
                 setRunId(data.run_id);

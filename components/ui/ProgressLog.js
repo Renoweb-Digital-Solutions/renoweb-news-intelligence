@@ -16,7 +16,6 @@ const FUNNY_LOGS = {
         "Asking Siri, Alexa, AND Google at once...",
         "Filtering out the clickbait 🗑️",
         "Teaching the AI to read faster...",
-        "Scrolling through Twitter so you don't have to",
         "News anchors hate this one trick...",
         "Making reporters type faster ⌨️",
         "Checking under rocks for hidden articles...",
@@ -78,6 +77,43 @@ const FUNNY_LOGS = {
         "Generating ideas at the speed of thought...",
         "The keyword fairy is working on it 🧚",
     ],
+    search_instagram: [
+        "Double-tapping all the reels...",
+        "Finding the perfect filter 📸",
+        "Scrolling past the influencer ads...",
+        "Checking who liked what...",
+        "Bypassing the algorithm 🕵️",
+        "Looking for trending audio...",
+        "Reading captions way too fast 📖",
+        "Measuring aesthetic appeal...",
+    ],
+    search_youtube: [
+        "Watching every video at 2x speed ⏩",
+        "Hitting the like and subscribe button...",
+        "Reading the comments section (brave) 🛡️",
+        "Waiting for the unskippable ad to finish...",
+        "Searching for clickbait thumbnails...",
+        "Analyzing the algorithm...",
+        "Buffering... just kidding, scraping...",
+    ],
+    search_reddit: [
+        "Downvoting the trolls...",
+        "Sorting by controversial 🍿",
+        "Consulting the hive mind...",
+        "Reading 50-page deep dives...",
+        "Checking for the TL;DR...",
+        "Searching for the megathread...",
+        "Gaining internet points...",
+    ],
+    search_linkedin: [
+        "Synergizing paradigms...",
+        "Congratulating someone on a new role 🤝",
+        "Endorsing skills...",
+        "Reading 10-paragraph posts about waking up at 4 AM ☕",
+        "Circling back on action items...",
+        "Networking at the speed of light ⚡",
+        "B2B sales pitching... jk, just scraping",
+    ],
 };
 
 function getRandomLog(action, usedIndices) {
@@ -107,6 +143,10 @@ function estimateETA(action, elapsed) {
         load_db: 15,
         summarize: 90,
         suggest: 20,
+        search_instagram: 45,
+        search_youtube: 45,
+        search_reddit: 30,
+        search_linkedin: 45,
     };
     const est = estimates[action] || 30;
     const remaining = Math.max(0, est - elapsed);
@@ -158,6 +198,10 @@ export default function ProgressLog({ action }) {
         load_db: "Loading from database",
         summarize: "Summarizing articles",
         suggest: "Suggesting keywords",
+        search_instagram: "Searching Instagram",
+        search_youtube: "Searching YouTube",
+        search_reddit: "Searching Reddit",
+        search_linkedin: "Searching LinkedIn",
     };
 
     return (

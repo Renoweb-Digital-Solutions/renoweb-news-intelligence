@@ -13,8 +13,13 @@ import ClayCard from "../ui/ClayCard";
 
 export default function NewsTable({ data = [] }) {
 
-    const columns = useMemo(
-        () => [
+    const columns = useMemo(() => {
+        const hasData = (key) => data.some(item => {
+            const val = item[key];
+            return val !== undefined && val !== null && val !== "" && val !== "-";
+        });
+
+        const allColumns = [
             { header: "Keyword", accessorKey: "keyword" },
             { 
                 header: "Title", 
@@ -61,11 +66,19 @@ export default function NewsTable({ data = [] }) {
             { header: "Freshness", accessorKey: "freshness_score", cell: ({ getValue }) => getValue() ?? "-" },
             { header: "Trend Score", accessorKey: "trend_score", cell: ({ getValue }) => getValue() ?? "-" },
             { header: "Summary", accessorKey: "summary" },
-        ],
-        []
-    );
+        ];
 
-    const hasTrendScore = data.length > 0 && data[0].trend_score !== undefined;
+        const optionalCols = ["published_at", "google_trends_score", "freshness_score", "trend_score", "summary"];
+        
+        return allColumns.filter(col => {
+            if (optionalCols.includes(col.accessorKey)) {
+                return hasData(col.accessorKey);
+            }
+            return true;
+        });
+    }, [data]);
+
+    const hasTrendScore = data.some(item => item.trend_score !== undefined && item.trend_score !== null);
 
     const table = useReactTable({
         data,
