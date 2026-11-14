@@ -7,6 +7,8 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    // # Ignore isolated build artifacts alongside normal Next.js output.
+    ".next-verification/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

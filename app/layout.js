@@ -9,7 +9,7 @@ const inter = Inter({
 
 export const metadata = {
   title: "Snooptel",
-  description: "Modern Snooptel Dashboard",
+  description: "Find your next content idea with news, search trends, and social research.",
 };
 
 export default function RootLayout({ children }) {

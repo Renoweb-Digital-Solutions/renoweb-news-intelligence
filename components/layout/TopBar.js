@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Chewy } from "next/font/google";
+import AccountNav from "@/components/auth/AccountNav";
 
 const chewy = Chewy({ weight: '400', subsets: ['latin'] });
 
@@ -45,6 +46,8 @@ export default function Topbar() {
                 </div>
 
                 <div className="flex items-center gap-3 text-xs">
+                    {/* # Account navigation keeps home available and revokes sessions on logout. */}
+                    <AccountNav />
                     {health && (
                         <div className="flex items-center gap-2 mr-4">
                             <span className="text-[var(--muted)] font-medium hidden sm:inline">Services:</span>
